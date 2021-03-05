@@ -25,7 +25,8 @@ namespace OderAppWebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetProposedOrders(Order order)
         {
-            return await _context.Order.Include(c => c.Customer).Where(o => o.OrderStatus == "PROPOSED").ToListAsync(); // payattention to the where clause inside of the statement
+            return await _context.Order.Include(c => c.Customer)
+                .Where(o => o.OrderStatus == "PROPOSED").ToListAsync(); // pay attention to the "where" clause inside of the statement
         }
 
         // PUT: api/orders/Edit/5

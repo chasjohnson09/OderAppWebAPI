@@ -21,6 +21,22 @@ namespace OderAppWebAPI.Controllers
             _context = context;
         }
 
+        private async Task<IActionResult> CalculateOrderTotal(int id)   // how to set up calculating the total-- also check the "put" method too see the additional work
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if(order == null)
+            {
+                return NotFound();
+            }
+            order.OrderTotal = _context.Orderlines.Where(li => li.OrderId == id).Sum(li => li.Qunatity * li.Item.Price);
+            var rowsaffected = await _context.SaveChangesAsync();
+            if(rowsaffected != 1)
+            {
+                throw new Exception("Failed to update Order Total");
+            }
+            return Ok();
+        }
+
         // GET: api/Orderlines
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Orderline>>> GetOrderline()
@@ -58,6 +74,7 @@ namespace OderAppWebAPI.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                await CalculateOrderTotal(orderline.OrderId);   // HERE is the calculating total
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -82,6 +99,7 @@ namespace OderAppWebAPI.Controllers
         {
             _context.Orderline.Add(orderline);
             await _context.SaveChangesAsync();
+            await CalculateOrderTotal(orderline.OrderId);           //HERE TOO
 
             return CreatedAtAction("GetOrderline", new { id = orderline.Id }, orderline);
         }
@@ -98,6 +116,7 @@ namespace OderAppWebAPI.Controllers
 
             _context.Orderline.Remove(orderline);
             await _context.SaveChangesAsync();
+            await CalculateOrderTotal(orderline.OrderId);       //HERE TOO
 
             return orderline;
         }
