@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210305161805_created salesperson class.cs" />
+    <Compile Remove="Migrations\20210305161805_created salesperson class.Designer.cs" />
+    <Compile Remove="Migrations\20210305163424_hopefully fixed it.cs" />
+    <Compile Remove="Migrations\20210305163424_hopefully fixed it.Designer.cs" />
+    <Compile Remove="Migrations\20210305163711_added salesperson class and controller.cs" />
+    <Compile Remove="Migrations\20210305163711_added salesperson class and controller.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlserver" Version="3.1.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.12">

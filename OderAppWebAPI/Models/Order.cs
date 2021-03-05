@@ -20,5 +20,7 @@ namespace OderAppWebAPI.Models
         public int CustomerId { get; set; }     // VS automatically recognizes this as a FOREIGN KEY
         public virtual Customer Customer { get; set; }
         public virtual IEnumerable<Orderline> Orderlines { get; set; }  // generic collection to be able to for each through all of them
+        public int? SalesPersonId { get; set; } 
+        public virtual SalesPerson SalesPerson { get; set; }
     }
 }

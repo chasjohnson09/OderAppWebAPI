@@ -18,6 +18,7 @@ namespace OderAppWebAPI.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Orderline> Orderlines { get; set; }
+        public DbSet<SalesPerson> SalesPerson { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
