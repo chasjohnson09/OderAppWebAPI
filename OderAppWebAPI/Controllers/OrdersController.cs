@@ -35,7 +35,7 @@ namespace OderAppWebAPI.Controllers
             var order = await _context.Order
                 .Include(c => c.Customer)               // PLEASE PAY ATTENTION TO THIS!!!!
                 .Include(l => l.Orderlines)             // This is how we got all the info how we wanted
-                //.ThenInclude(i => i.Item)
+                .ThenInclude(i => i.Item)
                 .SingleOrDefaultAsync(o=> o.Id == id);
 
             if (order == null)
