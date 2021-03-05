@@ -17,7 +17,7 @@ namespace OderAppWebAPI.Models
         public string Statecode { get; set; }
         [Column(TypeName = "Decimal (9,2)")]
         public decimal Sales { get; set; }
-        public int OrderId { get; set; }
+        public int OrderId { get; set; }    // need to get rid of this !!!!!
         
 
     }

@@ -21,6 +21,53 @@ namespace OderAppWebAPI.Controllers
             _context = context;
         }
 
+        // GET: api/Orders/proposed
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Order>>> GetProposedOrders(Order order)
+        {
+            return await _context.Order.Include(c => c.Customer).Where(o => o.OrderStatus == "PROPOSED").ToListAsync(); // payattention to the where clause inside of the statement
+        }
+
+        // PUT: api/orders/Edit/5
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> SetOrderStatusToEdit(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            order.OrderStatus = "EDIT";
+            return await PutOrder(order.Id, order); 
+        }
+
+
+        // PUT: api/orders/Proposed/5
+        [HttpPut("proposed/{id}")]
+        public async Task<IActionResult> SetOrderStatusToPropose(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            order.OrderStatus = (order.OrderTotal <= 100) ? "FINAL" : "PROPOSED";   //ternary operator (if the bool is true then the first quote is used)
+            return await PutOrder(order.Id, order);                                 // if it is false it will use the second quote
+        }
+
+        // PUT: api/orders/Final/5
+        [HttpPut("final/{id}")]
+        public async Task<IActionResult> SetOrderStatusToFinal(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            order.OrderStatus = "FINAL";
+            return await PutOrder(order.Id, order);
+        }
+
         // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
