@@ -15,6 +15,9 @@ namespace OderAppWebAPI.Data
         }
 
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Orderline> Orderlines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,5 +26,11 @@ namespace OderAppWebAPI.Data
                 e.HasIndex(c => c.Code).IsUnique(true);
             });
         }
+
+        public DbSet<OderAppWebAPI.Models.Item> Item { get; set; }
+
+        public DbSet<OderAppWebAPI.Models.Order> Order { get; set; }
+
+        public DbSet<OderAppWebAPI.Models.Orderline> Orderline { get; set; }
     }
 }
